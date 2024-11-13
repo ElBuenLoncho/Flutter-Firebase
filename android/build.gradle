@@ -1,0 +1,25 @@
+// Repositorios de dependencias
+allprojects {
+    repositories {
+        google()  // Repositorio de Google
+        mavenCentral()  // Repositorio central de Maven
+    }
+}
+
+rootProject.buildDir = "../build"  // Directorio de compilación
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+
+// Agrega el complemento de Google Services para Firebase
+plugins {
+    // Otros complementos pueden estar aquí
+    id 'com.google.gms.google-services' version '4.4.2' apply false  // Complemento de Firebase
+}

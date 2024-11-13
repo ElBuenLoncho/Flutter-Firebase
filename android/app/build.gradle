@@ -1,0 +1,50 @@
+plugins {
+    id "com.android.application"  // Plugin para aplicaciones Android
+    id "kotlin-android"  // Plugin para Kotlin
+    id "dev.flutter.flutter-gradle-plugin"  // Plugin para Flutter
+    id 'com.google.gms.google-services'  // Plugin de Google Services para Firebase
+}
+
+android {
+    namespace = "com.flutter.appfirebase"  // El namespace debe coincidir con el applicationId
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        // Asegúrate de que applicationId coincida con el nombre del paquete de Firebase
+        applicationId = "com.flutter.appfirebase"  // Asegúrate de que coincida con el Firebase project ID
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+dependencies {
+    // Firebase BoM (Bill of Materials) para manejar versiones automáticamente
+    implementation platform('com.google.firebase:firebase-bom:33.5.1')
+
+    // Dependencias de Firebase que necesitas (por ejemplo, Firebase Analytics)
+    implementation 'com.google.firebase:firebase-analytics'  // Ejemplo: Firebase Analytics
+    implementation 'com.google.firebase:firebase-auth'  // Ejemplo: Firebase Auth
+    // Puedes agregar más dependencias si necesitas otros productos de Firebase (Firestore, Realtime Database, etc.)
+}
+
+flutter {
+    source = "../.."
+}
